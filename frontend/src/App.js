@@ -8,9 +8,7 @@ import Schedule from './schedule';
 const App = () => {
   return (
     <Router>
-      <>
-        <Navbar />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '20px' }}>
+        <div>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/video" element={<VideoConferencing />} />
@@ -18,7 +16,6 @@ const App = () => {
             {/* Define additional pages here */}
           </Routes>
         </div>
-      </>
     </Router>
   );
 };
