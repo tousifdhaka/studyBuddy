@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './schedule.css';
 
 const Schedule = () => {
-  const [availability, setAvailability] = useState(Array(7).fill(Array(12).fill(false)));
+  const [availability, setAvailability] = useState(Array(7).fill(Array(19).fill(false)));
 
   const toggleTimeSlot = (dayIndex, timeIndex) => {
     const updatedAvailability = availability.map((day, index) =>
@@ -15,12 +15,9 @@ const Schedule = () => {
     <div className="schedule-container">
       <h2>Set Your Availability</h2>
       <div className="weekly-schedule">
-        <div className="schedule-header">
-          <h3>Weekly Schedule</h3>
-        </div>
         <div className="schedule-grid">
           <div className="time-labels">
-            {['9:00', '10:00', '11:00', '12:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00'].map((time, index) => (
+            {['Time', '7:00 am', '8:00 am', '9:00 am', '10:00 am', '11:00 am', '12:00 pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 pm', '8:00 pm', '9:00 pm', '10:00 pm', '11:00 pm', '12:00 am'].map((time, index) => (
               <div key={index} className="time-slot">
                 {time}
               </div>
@@ -40,15 +37,6 @@ const Schedule = () => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-      <div className="quick-selection">
-        <h3>Quick Selection</h3>
-        <div className="selection-buttons">
-          <button className="selection-button">Weekday Mornings</button>
-          <button className="selection-button">Weekday Afternoons</button>
-          <button className="selection-button">Weekday Evenings</button>
-          <button className="selection-button">Weekends</button>
         </div>
       </div>
       <div className="save-availability">
