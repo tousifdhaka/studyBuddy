@@ -25,6 +25,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 30px;
   margin-top: 20px;
+  position: relative;
 }
 
 .header {
@@ -104,4 +105,29 @@ body {
 .controls button:hover {
   background-color: #00d4ff;
   transform: scale(1.1); /* Adds a slight scale effect on hover for better UI feedback */
+}
+
+.chat-container {
+  position: absolute;
+  right: 20px;
+  top: 100px; 
+  width: 300px; 
+  height: calc(100% - 120px); 
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.local-video, .remote-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block; /* Change from 'none' to 'block' */
+}
+
+.video-placeholder {
+  position: absolute;
+  color: #ffffff;
+  display: none; /* Hide placeholder when video is shown */
 }
