@@ -10,8 +10,8 @@ body {
 }
 
 .schedule-container {
-  width: 90%;
-  max-width: 1200px;
+  width: 95%; /* Increase the width for more space utilization */
+  max-width: 1400px; /* Increase max width */
   margin: 100px auto; /* Adjust the top margin to push the container down */
   padding: 20px;
   background-color: #ffffff;
@@ -22,6 +22,7 @@ body {
 h2 {
   text-align: center;
   color: #00796b;
+  margin-bottom: 20px; /* Add margin for better separation */
 }
 
 .weekly-schedule {
@@ -38,7 +39,7 @@ h2 {
 .time-labels {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px; /* Increase gap for better separation */
 }
 
 .day-label {
@@ -50,23 +51,23 @@ h2 {
 
 .time-slot,
 .day-label {
-  padding: 10px;
-  font-size: 14px;
+  padding: 15px; /* Increase padding for better visibility */
+  font-size: 16px; /* Increase font size for better readability */
   color: #333;
   text-align: center;
 }
 
 .days-grid {
   display: flex;
-  gap: 5px;
+  gap: 10px; /* Increase gap for better separation between days */
   flex-grow: 1;
-  width: 100%; /* Ensure it takes the entire width of the container */
+  width: 100%;
 }
 
 .day-column {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px; /* Increase gap for better separation between slots */
   align-items: stretch;
   flex: 1; /* Allow each day-column to grow and fill the space evenly */
 }
