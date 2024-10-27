@@ -68,10 +68,12 @@ io.on('connection', (socket) => {
 app.post('/api/register', async (req, res) => {
     try{
         const newPassword = await bcrypt.hash(req.body.password, 10)
+        const tutor = req.body.role === 'tutor' ? true : false
         await User.create({
             name: req.body.name,
             email: req.body.email,
             password: newPassword,
+            tutor: tutor,
         })
         res.json({status: 'ok'})
     }
@@ -88,6 +90,8 @@ app.post('/api/login', async (req, res) => {
         return res.json({status: 'error', error: 'invalid login'})
     }
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
+    console.log("User password in DB: ", user.password);
+    console.log("Entered password: ", req.body.password);
     if(isPasswordValid){
         const token = await new jose.SignJWT({
             name: user.name,
@@ -102,6 +106,31 @@ app.post('/api/login', async (req, res) => {
         return res.json({status: 'error', user: false})
     }
 });
+
+app.post('/api/saveAvailability', async (req, res) => {
+    const { email, availability } = req.body;
+
+  if (!email || !availability) {
+    return res.status(400).json({ status: 'error', error: 'Email and availability are required.' });
+  }
+
+  try {
+    // Find the user by email and update the availability
+    const user = await User.findOneAndUpdate(
+      { email },
+      { availability },
+      { new: true } // Returns the updated document
+    );
+
+    if (user) {
+      res.json({ status: 'ok', message: 'Availability updated successfully', user });
+    } else {
+      res.status(404).json({ status: 'error', error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ status: 'error', error: 'Failed to update availability' });
+  }
+  });
 
 // Use server.listen instead of app.listen
 server.listen(1337, () => {

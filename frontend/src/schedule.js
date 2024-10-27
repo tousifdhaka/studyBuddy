@@ -11,6 +11,28 @@ const Schedule = () => {
     setAvailability(updatedAvailability);
   };
 
+  const saveAvailability = async () => {
+    try {
+      const response = await fetch('http://localhost:1337/api/saveAvailability', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ availability }),
+      });
+
+      const data = await response.json();
+      if (data.status === 'ok') {
+        alert('Availability saved successfully!');
+      } else {
+        alert('Failed to save availability');
+      }
+    } catch (error) {
+      console.error('Error saving availability:', error);
+      alert('An error occurred while saving availability.');
+    }
+  };
+
   return (
     <div className="schedule-container">
       <h2>Set Your Availability</h2>
@@ -40,7 +62,7 @@ const Schedule = () => {
         </div>
       </div>
       <div className="save-availability">
-        <button className="save-button">Save Availability</button>
+        <button className="save-button" onClick={saveAvailability}>Save Availability</button>
       </div>
     </div>
   );
