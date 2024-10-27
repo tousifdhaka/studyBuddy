@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
-import './schedule.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './scheduleTutor.css';
 
-const Schedule = () => {
+const ScheduleTutor = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+      }
+    }, [navigate]);
+
   const [availability, setAvailability] = useState(Array(7).fill(Array(19).fill(false)));
 
   const toggleTimeSlot = (dayIndex, timeIndex) => {
@@ -17,6 +27,7 @@ const Schedule = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("token")
         },
         body: JSON.stringify({ availability }),
       });
@@ -69,4 +80,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default ScheduleTutor;

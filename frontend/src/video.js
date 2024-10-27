@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './video.css';
 import { FiMic, FiMicOff, FiVideo, FiVideoOff, FiMessageSquare } from 'react-icons/fi';
 import { AiOutlineUserAdd } from 'react-icons/ai';
@@ -11,8 +12,14 @@ const VideoConferencing = () => {
   const [stream, setStream] = useState(null);
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+      }
+
     startVideo();
   }, []);
 

@@ -29,6 +29,7 @@ const Login = () => {
 
     if (data.status === 'ok') {
       localStorage.setItem('token', data.user)
+      localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); 
       navigate('/dashboard')
     } else {
       alert(data)

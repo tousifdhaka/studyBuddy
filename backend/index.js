@@ -90,8 +90,7 @@ app.post('/api/login', async (req, res) => {
         return res.json({status: 'error', error: 'invalid login'})
     }
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
-    console.log("User password in DB: ", user.password);
-    console.log("Entered password: ", req.body.password);
+    
     if(isPasswordValid){
         const token = await new jose.SignJWT({
             name: user.name,
@@ -100,7 +99,12 @@ app.post('/api/login', async (req, res) => {
             .setProtectedHeader({alg: 'HS256'})
             .setIssuedAt()
             .sign(new TextEncoder().encode(process.env.JWTKey))
-        return res.json({status: 'ok', user: token})
+
+        return res.json({
+            status: 'ok',
+            user: token,
+            tutor: user.tutor
+        });
     }
     else{
         return res.json({status: 'error', user: false})
@@ -108,29 +112,47 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.post('/api/saveAvailability', async (req, res) => {
-    const { email, availability } = req.body;
+    const token = req.headers['x-access-token']; // Get the token from the header
 
-  if (!email || !availability) {
-    return res.status(400).json({ status: 'error', error: 'Email and availability are required.' });
-  }
-
-  try {
-    // Find the user by email and update the availability
-    const user = await User.findOneAndUpdate(
-      { email },
-      { availability },
-      { new: true } // Returns the updated document
-    );
-
-    if (user) {
-      res.json({ status: 'ok', message: 'Availability updated successfully', user });
-    } else {
-      res.status(404).json({ status: 'error', error: 'User not found' });
+    if (!token) {
+        return res.status(401).json({ status: 'error', error: 'Token is required.' });
     }
-  } catch (error) {
-    res.status(500).json({ status: 'error', error: 'Failed to update availability' });
-  }
-  });
+
+    // Verify the token
+    try {
+        const decoded = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey));
+        const email = decoded.payload.email; // Extract the email from the token
+        const { availability } = req.body;
+
+        if (!availability) {
+            return res.status(400).json({ status: 'error', error: 'Availability is required.' });
+        }
+
+        // Find the user by email and update the availability
+        const user = await User.findOneAndUpdate(
+            { email },
+            { availability },
+            { new: true } // Returns the updated document
+        );
+
+        if (user) {
+            res.json({ status: 'ok', message: 'Availability updated successfully', user });
+        } else {
+            res.status(404).json({ status: 'error', error: 'User not found' });
+        }
+    } catch (error) {
+        res.status(401).json({ status: 'error', error: 'Invalid token' });
+    }
+});
+
+app.get('/api/tutors', async (req, res) => {
+    try {
+      const tutors = await User.find({ tutor: true }, 'name availability');
+      res.json({ status: 'ok', tutors });
+    } catch (error) {
+      res.json({ status: 'error', error: 'Failed to fetch tutors' });
+    }
+});  
 
 // Use server.listen instead of app.listen
 server.listen(1337, () => {
