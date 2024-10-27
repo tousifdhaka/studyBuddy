@@ -1,9 +1,9 @@
-# README3.txt
+README3.txt
 
-## 1. Overview
+1. Overview
 This document provides detailed instructions on how to run basic function tests and unit tests for the project. The tests are designed to verify the correct functioning of various features of the application, such as the menu interactions, user inputs, and core components.
 
-## 2. Setup Requirements
+2. Setup Requirements
 
 To run the tests, you need to set up your environment as follows:
 
@@ -15,7 +15,7 @@ To run the tests, you need to set up your environment as follows:
 3. Make sure you have a browser installed (e.g., Google Chrome) to run automated tests.
 4. Recommended: Install testing tools such as [Jest](https://jestjs.io/), [Cypress](https://www.cypress.io/), or any other preferred testing framework.
 
-## 3. Running Unit Tests
+3. Running Unit Tests
 
 To run unit tests for the different components, follow these steps:
 
@@ -32,13 +32,12 @@ To run unit tests for the different components, follow these steps:
    - `schedule.test.js`: Tests functionality for scheduling.
    - `register.test.js`: Tests user registration validation and error-handling.
 
-## 4. Running Functional Tests (Menu & User Interactions)
+4. Running Functional Tests (Menu & User Interactions)
 
 The following are the steps for running functional tests to verify different menu combinations and expected outcomes.
+4.1 Test for Menu Interactions
 
-### 4.1 Test for Menu Interactions
-
-1. **Manual Testing**:
+1. Manual Testing:
    - Launch the application by running:
      ```sh
      npm start
@@ -50,19 +49,19 @@ The following are the steps for running functional tests to verify different men
      - Clicking "Schedule" redirects to the Schedule section and shows the availability slots.
      - Navigating to "Video" successfully loads the video conferencing page.
 
-2. **Example Test Combinations**:
+2. Example Test Combinations:
 
-   - **Scenario 1: Login Page**
-     - **Steps**: Click on the "Login" link in the navbar.
-     - **Expected Outcome**: The "Login" form should be rendered, allowing user authentication.
+   - Scenario 1: Login Page
+     - Steps: Click on the "Login" link in the navbar.
+     - Expected Outcome: The "Login" form should be rendered, allowing user authentication.
 
-   - **Scenario 2: Schedule Availability**
-     - **Steps**: Click on "Schedule" → Choose available slots → Click "Save Availability".
-     - **Expected Outcome**: Selected slots should turn green, and saving should trigger a confirmation alert.
+   - Scenario 2: Schedule Availability
+     - Steps: Click on "Schedule" → Choose available slots → Click "Save Availability".
+     - Expected Outcome: Selected slots should turn green, and saving should trigger a confirmation alert.
 
-   - **Scenario 3: Switching Pages**
-     - **Steps**: Navigate in this order: "Schedule" → "Video" → "Profile".
-     - **Expected Outcome**: Each page loads correctly with no page reload or errors in the console.
+   - Scenario 3: Switching Pages
+     - Steps: Navigate in this order: "Schedule" → "Video" → "Profile".
+     - Expected Outcome: Each page loads correctly with no page reload or errors in the console.
 
 
 ## 6. Notes
