@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
-import './schedule.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './scheduleTutor.css';
 
-const Schedule = () => {
+const ScheduleTutor = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+      }
+    }, [navigate]);
+
   const [availability, setAvailability] = useState(Array(7).fill(Array(19).fill(false)));
 
   const toggleTimeSlot = (dayIndex, timeIndex) => {
@@ -9,6 +19,29 @@ const Schedule = () => {
       index === dayIndex ? day.map((slot, i) => (i === timeIndex ? !slot : slot)) : day
     );
     setAvailability(updatedAvailability);
+  };
+
+  const saveAvailability = async () => {
+    try {
+      const response = await fetch('http://localhost:1337/api/saveAvailability', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("token")
+        },
+        body: JSON.stringify({ availability }),
+      });
+
+      const data = await response.json();
+      if (data.status === 'ok') {
+        alert('Availability saved successfully!');
+      } else {
+        alert('Failed to save availability');
+      }
+    } catch (error) {
+      console.error('Error saving availability:', error);
+      alert('An error occurred while saving availability.');
+    }
   };
 
   return (
@@ -41,10 +74,10 @@ const Schedule = () => {
         </div>
       </div>
       <div className="save-availability">
-        <button className="save-button">Save Availability</button>
+        <button className="save-button" onClick={saveAvailability}>Save Availability</button>
       </div>
     </div>
   );
 };
 
-export default Schedule;
+export default ScheduleTutor;
