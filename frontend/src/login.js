@@ -1,10 +1,42 @@
-import React from 'react'; // Import React to use JSX and React features
-import './login.css'; // Import the CSS file to style the login page
-import logo from './static/logo.png'; // Import the logo image
-import Navbar from './navbar'; // Import the Navbar component
+import React from 'react';
+import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import './login.css';
+import logo from './static/logo.png';
+import Navbar from './navbar'; // Correct import of Navbar component
 
 // Define the Login component
 const Login = () => {
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+  async function loginUser(event){
+    event.preventDefault()
+
+    const response = await fetch('http://localhost:1337/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+
+    const data = await response.json()
+
+    if (data.status === 'ok') {
+      localStorage.setItem('token', data.user)
+      localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); 
+      navigate('/dashboard')
+    } else {
+      alert(data)
+    }
+  }
+
   return (
     <>
       {/* Include the Navbar component at the top of the page */}

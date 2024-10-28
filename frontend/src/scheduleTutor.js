@@ -1,9 +1,17 @@
-import React, { useState } from 'react'; // Import React and useState for managing state
-import './schedule.css'; // Import the CSS for styling the Schedule component
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './scheduleTutor.css';
 
-// Define the Schedule component
-const Schedule = () => {
-  // Initialize availability state with an array of 7 days (each with 19 timeslots) all set to false
+const ScheduleTutor = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+      }
+    }, [navigate]);
+
   const [availability, setAvailability] = useState(Array(7).fill(Array(19).fill(false)));
 
   // Function to toggle the availability of a specific time slot
@@ -14,6 +22,29 @@ const Schedule = () => {
     );
     // Set the updated availability
     setAvailability(updatedAvailability);
+  };
+
+  const saveAvailability = async () => {
+    try {
+      const response = await fetch('http://localhost:1337/api/saveAvailability', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("token")
+        },
+        body: JSON.stringify({ availability }),
+      });
+
+      const data = await response.json();
+      if (data.status === 'ok') {
+        alert('Availability saved successfully!');
+      } else {
+        alert('Failed to save availability');
+      }
+    } catch (error) {
+      console.error('Error saving availability:', error);
+      alert('An error occurred while saving availability.');
+    }
   };
 
   return (
@@ -65,10 +96,10 @@ const Schedule = () => {
 
       {/* Save availability button at the bottom */}
       <div className="save-availability">
-        <button className="save-button">Save Availability</button> {/* Save button for finalizing the availability */}
+        <button className="save-button" onClick={saveAvailability}>Save Availability</button>
       </div>
     </div>
   );
 };
 
-export default Schedule; // Export the Schedule component as default to be used in other parts of the application
+export default ScheduleTutor;
