@@ -1,9 +1,19 @@
-import React from 'react'; // Import React library
+import React,  { useEffect }from 'react'; // Import React library
 import './dashboard.css'; // Import custom CSS for styling
 import { FiClock, FiCalendar, FiVideo, FiBook } from 'react-icons/fi'; // Import icons
+import { useNavigate } from 'react-router-dom';
 
 // Dashboard component receives userName and upcomingSessions as props
 const Dashboard = ({ userName, upcomingSessions }) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login"); // Redirect to login if no token
+        }
+      }, [navigate]);
+
   return (
     <div className="dashboard-container">
       {/* Display a welcome message with the user's name */}

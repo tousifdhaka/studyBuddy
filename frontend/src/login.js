@@ -30,7 +30,7 @@ const Login = () => {
     if (data.status === 'ok') {
       localStorage.setItem('token', data.user)
       localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); 
-      navigate('/dashboard')
+      navigate('/schedule')
     } else {
       alert(data)
     }
@@ -57,8 +57,7 @@ const Login = () => {
             <button type="submit" className="login-button">Log In</button>
           </form>
           <div className="login-footer">
-            <a href="#">Forgot password?</a>
-            <a href="#">Create an account</a>
+            <a href="/register">Create an account</a>
           </div>
         </div>
       </div>
