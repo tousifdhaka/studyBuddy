@@ -8,7 +8,7 @@ import ScheduleTutor from './scheduleTutor';
 import ScheduleTutoree from './scheduleTutoree';
 import Register from './register';
 import Dashboard from './dashboard';
-
+// The main App component that handles the routing and overall structure of the application
 const App = () => {
   const [userType, setUserType] = useState(null);
 
@@ -18,7 +18,7 @@ const App = () => {
     setUserType(storedUserType);
   }, []);
   return (
-    <Router>
+    <Router> {/* Wraps the entire app in a Router to enable routing functionality */}
         <div>
           <Navbar />
           <Routes>
