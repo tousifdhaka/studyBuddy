@@ -15,7 +15,6 @@ Open another terminal, navigate to the backend folder, and run npm install.
 
 Include Environment Variables
 In the backend directory, create a file named .env and add the following line to it:
-MONGO_CONNECTION_STRING='mongodb+srv://anshnaikele2003:ansh8603@cluster0.xcnjg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 Start the Project
 After dependencies are installed, use the following commands to run each part of the application:
