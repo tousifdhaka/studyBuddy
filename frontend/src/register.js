@@ -5,6 +5,7 @@ import './register.css';
 import Navbar from './navbar'; // Importing Navbar for use in the register page
 import logo from './static/logo.png'; // Make sure the path is correct
 
+// Define the Register component
 const Register = () => {
     const navigate = useNavigate()
 
