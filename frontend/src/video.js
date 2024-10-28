@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'; // Import React and hooks
+import { useNavigate } from 'react-router-dom';
 import './video.css'; // Import custom CSS for styling
 import { FiMic, FiMicOff, FiVideo, FiVideoOff, FiMessageSquare } from 'react-icons/fi'; // Import icons
 import { AiOutlineUserAdd } from 'react-icons/ai';
@@ -15,10 +16,15 @@ const VideoConferencing = () => {
   const [stream, setStream] = useState(null);
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+  const navigate = useNavigate();
 
   // useEffect runs when the component mounts
   useEffect(() => {
-    startVideo(); // Start the video stream when the component loads
+    const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+      }
+      startVideo(); // Start the video stream when the component loads
   }, []);
 
   // Function to start video and audio streaming
