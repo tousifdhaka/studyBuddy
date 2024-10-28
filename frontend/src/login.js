@@ -1,39 +1,45 @@
 import React from 'react';
-import {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import './login.css';
-import logo from './static/logo.png';
-import Navbar from './navbar'; // Correct import of Navbar component
+import { useState } from 'react'; // Importing useState hook for managing component state
+import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook for navigation
+import './login.css'; // Importing the CSS file for styling the login component
+import logo from './static/logo.png'; // Importing the logo image
+import Navbar from './navbar'; // Importing Navbar component
 
 // Define the Login component
 const Login = () => {
-    const navigate = useNavigate()
+  // useNavigate hook to allow redirection after successful login
+  const navigate = useNavigate();
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  // Define state variables for email and password input fields
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  async function loginUser(event){
-    event.preventDefault()
+  // Function to handle the login process
+  async function loginUser(event) {
+    event.preventDefault(); // Prevent page refresh on form submit
 
+    // Send login details to the server using the Fetch API
     const response = await fetch('http://localhost:1337/api/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json', // Set content type to JSON
       },
       body: JSON.stringify({
         email,
-        password
-      })
-    })
+        password,
+      }),
+    });
 
-    const data = await response.json()
+    const data = await response.json(); // Parse the response data as JSON
 
+    // If login is successful, store the token and user type in local storage
     if (data.status === 'ok') {
-      localStorage.setItem('token', data.user)
-      localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); 
-      navigate('/dashboard')
+      localStorage.setItem('token', data.user);
+      localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); // Store user type based on the response
+      navigate('/dashboard'); // Redirect the user to the dashboard page
     } else {
-      alert(data)
+      // Display an alert if there is an error during login
+      alert(data);
     }
   }
 
@@ -52,21 +58,37 @@ const Login = () => {
           </div>
 
           {/* Login form */}
-          <form>
+          <form onSubmit={loginUser}> {/* Attach the loginUser function to the form's onSubmit event */}
             {/* Input group for the email */}
             <div className="input-group">
               <label htmlFor="email">Email</label> {/* Label for email input */}
-              <input type="email" id="email" name="email" placeholder="Enter your email" required /> {/* Email input field */}
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="Enter your email" 
+                value={email} // Bind the email state to the input field
+                onChange={(e) => setEmail(e.target.value)} // Update state on input change
+                required 
+              />
             </div>
 
             {/* Input group for the password */}
             <div className="input-group">
               <label htmlFor="password">Password</label> {/* Label for password input */}
-              <input type="password" id="password" name="password" placeholder="Enter your password" required /> {/* Password input field */}
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                placeholder="Enter your password" 
+                value={password} // Bind the password state to the input field
+                onChange={(e) => setPassword(e.target.value)} // Update state on input change
+                required 
+              />
             </div>
 
             {/* Login button */}
-            <button type="submit" className="login-button">Log In</button>
+            <button type="submit" className="login-button">Log In</button> {/* The form submission triggers loginUser */}
           </form>
 
           {/* Footer section with links to "Forgot password?" and "Create an account" */}
