@@ -50,21 +50,55 @@ The following are the steps for running functional tests to verify different men
      - Navigating to "Video" successfully loads the video conferencing page.
 
 2. Example Test Combinations:
+Scenario 1: Login Page
+Steps:
 
-   - Scenario 1: Login Page
-     - Steps: Click on the "Login" link in the navbar.
-     - Expected Outcome: The "Login" form should be rendered, allowing user authentication.
+Launch the application by running:
+sh
+Copy code
+npm start
+Open your browser and navigate to the application at http://localhost:3000.
+Locate the "Login" link in the navigation bar (navbar) and click on it.
+The "Login" page should load, showing fields for email and password input.
+Enter an email address in the email field.
+Enter a password in the password field.
+Click on the "Log In" button.
+Expected Outcome:
 
-   - Scenario 2: Schedule Availability
-     - Steps: Click on "Schedule" → Choose available slots → Click "Save Availability".
-     - Expected Outcome: Selected slots should turn green, and saving should trigger a confirmation alert.
+After clicking the "Login" link, the application should navigate to the login page.
+The login form should be rendered correctly, with both email and password fields visible.
+After entering credentials and clicking the "Log In" button, if the credentials are valid, the user should be authenticated and redirected to the dashboard or a landing page.
+In case of incorrect credentials, an appropriate error message should be displayed, prompting the user to try again.
+Scenario 2: Schedule Availability
+Steps:
 
-   - Scenario 3: Switching Pages
-     - Steps: Navigate in this order: "Schedule" → "Video" → "Profile".
-     - Expected Outcome: Each page loads correctly with no page reload or errors in the console.
+Navigate to the "Schedule" page by clicking on the "Schedule" link in the navbar.
+The weekly schedule should be visible, showing all the days of the week (Monday to Sunday) and time slots ranging from 7:00 am to 12:00 am.
+Click on multiple time slots under different days to select availability (e.g., select 9:00 am and 10:00 am under Monday, and 2:00 pm under Wednesday).
+After selecting the desired slots, click the "Save Availability" button.
+Expected Outcome:
 
+The "Schedule" page should load correctly, displaying all time slots for each day of the week.
+When clicking on a time slot, the background color of that slot should change to green, indicating that it is available.
+Clicking on a previously selected (green) time slot should deselect it, reverting it to its default color.
+Clicking the "Save Availability" button should trigger a confirmation alert, verifying that the selected availability has been saved successfully.
+The selected time slots should remain green even after saving, indicating that the availability was saved as expected.
+Scenario 3: Switching Pages
+Steps:
 
-## 6. Notes
+Navigate to the "Schedule" page by clicking on "Schedule" in the navbar.
+After verifying that the schedule page has loaded correctly, click on the "Video" link in the navbar to navigate to the video conferencing page.
+Once on the video conferencing page, click on the "Profile" link to navigate to the user's profile page.
+Expected Outcome:
+
+The application should allow seamless navigation between different pages without page reloads.
+On clicking "Schedule," the page should load the scheduling interface, displaying the weekly schedule.
+Clicking on "Video" should load the video conferencing interface, showing options for managing the video and audio.
+Clicking on "Profile" should navigate to the profile page, displaying the user's details.
+Throughout all these navigations, there should be no visible errors in the browser's console.
+The navbar should remain consistent across all pages, providing an easy way to navigate between different sections of the application.
+
+6. Notes
 - Make sure all dependencies are properly installed before attempting to run tests.
 - In case of any errors, ensure that the components have the correct export statements (`export default ComponentName`).
 
