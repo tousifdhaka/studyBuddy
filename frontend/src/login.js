@@ -36,7 +36,7 @@ const Login = () => {
     if (data.status === 'ok') {
       localStorage.setItem('token', data.user);
       localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); // Store user type based on the response
-      navigate('/dashboard'); // Redirect the user to the dashboard page
+      navigate('/schedule'); // Redirect the user to the schedule page
     } else {
       // Display an alert if there is an error during login
       alert(data);
@@ -93,8 +93,7 @@ const Login = () => {
 
           {/* Footer section with links to "Forgot password?" and "Create an account" */}
           <div className="login-footer">
-            <a href="#">Forgot password?</a> {/* Link for password recovery */}
-            <a href="#">Create an account</a> {/* Link to create a new account */}
+            <a href="/register">Create an account</a> {/* Link to create a new account */}
           </div>
         </div>
       </div>

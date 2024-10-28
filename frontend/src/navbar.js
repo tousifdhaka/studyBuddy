@@ -2,6 +2,7 @@ import React from 'react'; // Import React to use JSX and React features
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
 import './navbar.css'; // Import the CSS file to style the navbar
 import logo from './static/logo.png'; // Import the logo image for the navbar
+import { useNavigate } from 'react-router-dom';
 
 // Define the Navbar component
 const Navbar = () => {
