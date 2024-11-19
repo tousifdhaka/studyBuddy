@@ -14,7 +14,7 @@ const Flashcards = () => {
   }, [navigate]);
 
   // Define API key and URL for generating flashcards
-  const API_KEY = "AIzaSyC_9Y8VAgkL6TkZcy-z-BEQedIKlJ8VcSQ";
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const API_URL =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
 
