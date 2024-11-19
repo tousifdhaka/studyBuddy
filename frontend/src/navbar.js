@@ -38,7 +38,6 @@ const Navbar = () => {
           <>
             {/* Show other links only when not on login or signup pages */}
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
-            <Link to="/video" className="nav-link">Video</Link>
             <Link to="/schedule" className="nav-link">Schedule</Link>
             <Link to="/flashcards" className="nav-link">Flashcards</Link>
             <Link to="/chatbot" className="nav-link">Chatbot</Link>
