@@ -21,7 +21,16 @@ const User = new mongoose.Schema(
             type: [[Boolean]], // The structure is a 2D array
             // Default value initializes availability for 7 days (Mon-Sun) with 19 time slots each (e.g., 7 AM to 9 PM)
             default: Array(7).fill(Array(19).fill(false)) 
-        }
+        },
+
+        bookings: [{
+            name: { type: String},
+            tutorEmail: { type: String},
+            tutoreeEmail: { type: String},
+            link: { type: String},
+            day: Number,  // 0-6 representing Mon-Sun
+            time: Number, // 0-18 representing time slots
+        }]
     },
     // Specify the collection name in MongoDB
     { collection: 'user-data' }

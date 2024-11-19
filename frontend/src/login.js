@@ -36,7 +36,7 @@ const Login = () => {
     if (data.status === 'ok') {
       localStorage.setItem('token', data.user);
       localStorage.setItem('userType', data.tutor ? 'tutor' : 'tutoree'); // Store user type based on the response
-      navigate('/schedule'); // Redirect the user to the schedule page
+      navigate('/dashboard'); // Redirect the user to the schedule page
     } else {
       // Display an alert if there is an error during login
       alert(data);
