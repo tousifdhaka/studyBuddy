@@ -14,7 +14,8 @@ const Chatbot = () => {
   }, [navigate]);
 
   // API key and endpoint for AI model
-  const API_KEY = "AIzaSyC_9Y8VAgkL6TkZcy-z-BEQedIKlJ8VcSQ";
+  console.log(process.env.REACT_APP_API_KEY);
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const API_URL =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
 
