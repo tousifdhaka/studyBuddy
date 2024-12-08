@@ -229,7 +229,7 @@ app.post('/api/schedule-session', async (req, res) => {
             const booking = {
                 name : tutoree.name,
                 tutoreeEmail, // Only store the tutoreeEmail
-                link: 'https://meet.google.com/ngf-ujkb-cri',
+                link: 'https://us04web.zoom.us/j/6660800222?pwd=sAjWk1tUuCSK8oWWrummRo274Gw969.1',
                 day: DAYS.indexOf(day), // Convert day string to index
                 time: parseInt(time.split(':')[0]) - 7, // Convert time string to slot index
             };
@@ -250,7 +250,7 @@ app.post('/api/schedule-session', async (req, res) => {
             const booking = {
                 name: tutorName,
                 tutorEmail, // Only store the tutorEmail
-                link: 'https://meet.google.com/ngf-ujkb-cri',
+                link: 'https://us04web.zoom.us/j/6660800222?pwd=sAjWk1tUuCSK8oWWrummRo274Gw969.1',
                 day: DAYS.indexOf(day),
                 time: parseInt(time.split(':')[0]) - 7,
             };
@@ -284,7 +284,7 @@ app.get('/api/bookings', async (req, res) => {
         return res.json({ status: 'error', error: 'User not found' });
     }
 
-    res.json({ status: 'ok', name: user.name, bookings: user.bookings });
+    res.json({ status: 'ok', name: user.name, bookings: user.bookings, link: user.link });
 });
 
 // Start the server on port 1337
